@@ -1,18 +1,31 @@
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 from gtts import gTTS
 import PyPDF2
+import os
 
-input_file = open('RH_StudyGuide_V2.pdf', 'rb')
+# input_file = open('RH_StudyGuide_V2.pdf', 'rb')
 
-text = PyPDF2.PdfFileReader(input_file)
+Tk().withdraw()
+filelocation = askopenfilename()
 
-print(text.numPages)
+basename = os.path.basename(filelocation)
 
-language = 'en'
-output_text = ''
+filename = os.path.splitext(basename)[0]
 
-for pagenum in range (0, text.numPages):
-    pageObj = text.getPage(pagenum)
-    output_text = output_text + pageObj.extractText()
-    output = gTTS(text=output_text, lang=language, slow=False)
+with open(filelocation, 'rb') as f:
 
-output.save("output.mp3")
+    text = PyPDF2.PdfFileReader(f, strict=False)
+
+    print(text.numPages)
+
+    language = 'en'
+    output_text = ''
+
+    for pagenum in range (0, text.numPages):
+        pageObj = text.getPage(pagenum)
+        output_text = output_text + pageObj.extractText()
+        output = gTTS(text=output_text, lang=language, slow=False)
+
+    output.save(filename+".mp3")
+f.close()
