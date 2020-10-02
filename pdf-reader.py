@@ -4,8 +4,6 @@ from gtts import gTTS
 import PyPDF2
 import os
 
-# input_file = open('RH_StudyGuide_V2.pdf', 'rb')
-
 Tk().withdraw()
 filelocation = askopenfilename()
 
@@ -28,4 +26,5 @@ with open(filelocation, 'rb') as f:
         output = gTTS(text=output_text, lang=language, slow=False)
 
     output.save(filename+".mp3")
+
 f.close()
