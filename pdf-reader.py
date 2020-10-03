@@ -1,3 +1,5 @@
+# Author : Arnab Basak
+
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 from gtts import gTTS
